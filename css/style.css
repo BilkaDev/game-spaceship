@@ -18,6 +18,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
+    overflow: hidden;
+
 }
 
 .container {
@@ -25,6 +27,7 @@ body {
     height: 100vh;
     background-color: #000;
     position: relative;
+    overflow: hidden;
 }
 
 .information {
@@ -94,12 +97,15 @@ body {
     height: var(--size-units);
     background-image: url('../img/enemy.png');
     animation: move-5-units-X var(--ships-animation-time) steps(5) infinite;
+    position: fixed;
+    z-index: 1;
 }
 .enemy--big {
     width: calc(2 * var(--size-units));
     height: calc(2 * var(--size-units));
     background-image: url('../img/enemy-big.png');
     animation: move-16-units-X var(--ships-animation-time) steps(8) infinite;
+    position: fixed;
 }
 
 .explosion {
