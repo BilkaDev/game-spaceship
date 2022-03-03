@@ -1,10 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game Spaceship</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-$END$
+<div class="container">
+    <div class="spaceship">
+    </div>
+    <section class="information">
+        <article class="information-content">Score: 0</article>
+        <article class="information-content">Lives: 3</article>
+    </section>
+    <div class="modal">
+        <div class="modal__content">
+            <p class="modal__text">
+                You loose! Start new game!
+            </p>
+            <button class="modal__button">New Game</button>
+        </div>
+    </div>
+</div>
+<script type="module" src="./js/Game.js"></script>
 </body>
 </html>
