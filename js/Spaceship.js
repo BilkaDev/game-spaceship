@@ -13,14 +13,14 @@ export class Spaceship {
 
 
     init() {
-        this.#setPosition();
+        this.setPosition();
         this.#eventListener();
         this.#gameLoop();
 
     }
 
 
-    #setPosition() {
+    setPosition() {
         this.element.style.bottom = '0';
         this.element.style.left = `${window.innerWidth / 2 - this.#getPosition()}px`;
     }
