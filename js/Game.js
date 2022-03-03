@@ -24,18 +24,7 @@ class Game {
     }
 
     #checkPosition() {
-        this.#ship.missiles.forEach((missile, missileIndex, missileArray) => {
-            const missilePosition = {
-                top: missile.element.offsetTop,
-                right: missile.element.offsetLeft + missile.element.offsetWidth,
-                bottom: missile.element.offsetTop + missile.element.offsetHeight,
-                left: missile.element.offsetLeft,
-            }
-            if (missilePosition.top < 0) {
-                missile.remove();
-                missileArray.splice(missileIndex, 1);
-            }
-        })
+
 
         this.#enemies.forEach((enemy, enemyIndex, enemyArray) => {
             const enemyPosition = {
@@ -45,9 +34,38 @@ class Game {
                 left: enemy.element.offsetLeft,
             }
             if (enemyPosition.top > window.innerHeight) {
-                enemy.remove();
+                enemy.explode();
                 enemyArray.splice(enemyIndex, 1);
             }
+
+            this.#ship.missiles.forEach((missile, missileIndex, missileArray) => {
+                const missilePosition = {
+                    top: missile.element.offsetTop,
+                    right: missile.element.offsetLeft + missile.element.offsetWidth,
+                    bottom: missile.element.offsetTop + missile.element.offsetHeight,
+                    left: missile.element.offsetLeft,
+                }
+
+                if (missilePosition.bottom >= enemyPosition.top &&
+                    missilePosition.top <= enemyPosition.bottom &&
+                    missilePosition.right >= enemyPosition.left &&
+                    missilePosition.left <= enemyPosition.right
+                ) {
+                    enemy.hit();
+                    if (!enemy.lives) {
+                        enemyArray.splice(enemyIndex, 1);
+                    }
+
+                    missile.remove();
+                    missileArray.splice(missileIndex, 1);
+
+                }
+
+                if (missilePosition.top < 0) {
+                    missile.remove();
+                    missileArray.splice(missileIndex, 1);
+                }
+            })
         })
 
     }
@@ -67,11 +85,13 @@ class Game {
         randomNumber % 5 ? this.#createNewEnemy(
             this.#htmlElements.container,
             this.#enemiesInterval,
-            'enemy'
+            'enemy',
+            'explosion',
         ) : this.#createNewEnemy(
             this.#htmlElements.container,
             this.#enemiesInterval * 2,
             'enemy--big',
+            'explosion--big',
             3)
 
     }
