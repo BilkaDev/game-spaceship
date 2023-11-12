@@ -1,30 +1,24 @@
 package pl.networkmanager.bilka.spaceship.auth;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.networkmanager.bilka.spaceship.auth.dto.AuthDto;
+import pl.networkmanager.bilka.spaceship.user.UserService;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    @Autowired
+    UserService userService;
     @PostMapping("/signup")
-    public ResponseEntity<String> register(){
-        // get user .check user email if email is exist throw error "A user with that email already exists"
-
-        // hashed password.
-
-        // save user in db
-
-        return ResponseEntity.ok().body("User created");
+    public String register(@Valid @RequestBody AuthDto user) throws Exception {
+        return userService.createUser(user.getEmail(), user.getPassword());
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> login(){
-        // authenticate user password email
-
-        // create access token
-
-        return ResponseEntity.ok().body("access_token");
+    public String login(@Valid @RequestBody AuthDto user){
+        return userService.login(user.getEmail(), user.getPassword());
     }
 }
