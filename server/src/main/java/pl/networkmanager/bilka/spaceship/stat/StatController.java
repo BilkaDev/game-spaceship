@@ -1,16 +1,16 @@
 package pl.networkmanager.bilka.spaceship.stat;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.networkmanager.bilka.spaceship.stat.dto.StatAddDto;
 
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/stats")
-public class StatsController {
+public class StatController {
     @Autowired
     StatService statService;
 

@@ -21,4 +21,8 @@ public class UserRepository {
             return null;
         }
     }
+
+    public void save(User user){
+        jdbcTemplate.update("INSERT INTO user(email, username, hashPwd) VALUES(?,?,?)",user.getEmail(), user.getUsername(), user.getHashPwd());
+    }
 }

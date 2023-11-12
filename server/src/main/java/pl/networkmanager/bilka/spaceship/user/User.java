@@ -14,5 +14,6 @@ public class User {
     private String id;
     private String username;
     private String hashPwd;
+    private String email;
     private List<Stat> stats;
 }

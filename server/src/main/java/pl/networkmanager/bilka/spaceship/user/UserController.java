@@ -3,7 +3,7 @@ package pl.networkmanager.bilka.spaceship.user;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.networkmanager.bilka.spaceship.user.dto.UserProfile;
+import pl.networkmanager.bilka.spaceship.user.response.UserProfile;
 
 
 @RestController
