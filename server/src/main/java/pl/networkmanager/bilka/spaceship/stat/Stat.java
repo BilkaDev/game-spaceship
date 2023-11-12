@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Stat {
 
     private String id;
-    private int score;
+    private Long score;
     @JsonIgnore
     private String user_id;
     private String username;

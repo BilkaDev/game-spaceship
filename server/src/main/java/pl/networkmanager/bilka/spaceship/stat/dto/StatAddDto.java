@@ -1,5 +1,4 @@
 package pl.networkmanager.bilka.spaceship.stat.dto;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +14,5 @@ public class StatAddDto {
     @NotEmpty
     private String userId;
     @NotEmpty
-    @Max(217400000)
-    private int score;
+    private Long score;
     }

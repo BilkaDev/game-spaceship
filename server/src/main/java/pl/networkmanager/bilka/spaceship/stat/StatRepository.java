@@ -19,6 +19,7 @@ public class StatRepository {
         );
 
     }
+
     public int save(Stat stats){
         jdbcTemplate.update("INSERT INTO stat(score, user_id) VALUES(?,?)",stats.getScore(),stats.getUser_id());
 
