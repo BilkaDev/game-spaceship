@@ -1,8 +1,17 @@
 import { Spaceship } from './Spaceship.js';
 import { Enemy } from './Enemy.js';
-import { http } from './api/http.js';
+import { regsiterUser, login } from './api/auth.js';
+import { getTopStats, getUserStats } from './api/stat.js';
 
-http.get('/users/me').then((r) => console.log(r));
+const userPayload = {
+	email: 'test@example.com',
+	password: '123456',
+	username: 'Test',
+};
+//console.log(regsiterUser(userPayload));
+//console.log(login(userPayload));
+//console.log(getTopStats());
+console.log(getUserStats('4211ed4f-823c-11ee-a713-120c3c44454b').then((r) => console.log(r)));
 
 class Game {
 	#htmlElements = {
@@ -12,7 +21,7 @@ class Game {
 		lives: document.querySelector('[data-lives]'),
 		modal: document.querySelector('[data-modal]'),
 		scoreInfo: document.querySelector('[data-score-info]'),
-		button: document.querySelector('[data-button]'),
+		buttonNewGame: document.querySelector('[data-button-new-game]'),
 	};
 	#ship = new Spaceship(this.#htmlElements.spaceship, this.#htmlElements.container);
 	#enemies = [];
@@ -25,7 +34,7 @@ class Game {
 	init() {
 		this.#ship.init();
 		this.#newGame();
-		this.#htmlElements.button.addEventListener('click', () => this.#newGame());
+		this.#htmlElements.buttonNewGame.addEventListener('click', () => this.#newGame());
 	}
 
 	#newGame() {

@@ -6,7 +6,7 @@ const Endpoint_Auth_Login = () => 'auth/signin';
 
 const Endpoint_Profile = () => 'users/me';
 
-const Endpoint_Stats_TOP = () => 'users/me';
+const Endpoint_Stats_TOP = () => 'stats/top';
 const Endpoint_Stats_user = (id) => `stats/${id}`;
 
 class HTTP {
@@ -29,3 +29,17 @@ class HTTP {
 }
 
 export const http = new HTTP();
+
+export const authEndpoint = {
+	register: () => Endpoint_Auth_Register(),
+	login: () => Endpoint_Auth_Login(),
+};
+
+export const userEndpoint = {
+	profile: () => Endpoint_Profile(),
+};
+
+export const statEndpoint = {
+	getTopStats: () => Endpoint_Stats_TOP(),
+	getUserStats: (id) => Endpoint_Stats_user(id),
+};

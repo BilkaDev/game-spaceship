@@ -24,6 +24,7 @@ public class StatService {
     }
 
     public List<Stat> getUserStats(String userId) {
+        System.out.println(userId);
         return statRepository.getUserStatsByUserId(userId);
     }
 }
