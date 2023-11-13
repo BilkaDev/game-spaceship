@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.networkmanager.bilka.spaceship.auth.dto.SigninDto;
 import pl.networkmanager.bilka.spaceship.auth.dto.SignupDto;
 import pl.networkmanager.bilka.spaceship.exception.NotFoundException;
+import pl.networkmanager.bilka.spaceship.exception.UnauthorizedException;
 import pl.networkmanager.bilka.spaceship.security.Password;
 
 @Service
@@ -32,12 +33,18 @@ public class UserService {
     }
 
 
-    public String login(SigninDto payload){
+    public User login(SigninDto payload) throws Exception {
         User user = userRepository.getByEmail(payload.getEmail());
+        if (user == null) {
+            throw new UnauthorizedException("Invalid email or password");
+        }
+        boolean verifiedPassword = Password.verify(payload.getPassword(), user.getHashPwd());
+        if (!verifiedPassword) {
+            throw new UnauthorizedException("Invalid email or password");
+        }
+        // @TODO Add create token
 
-        // hashed password.
-
-        // save user in db
-        return "accessToken:!";
+        user.setHashPwd(null);
+        return user;
     }
 }

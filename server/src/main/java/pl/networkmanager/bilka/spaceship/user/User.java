@@ -1,5 +1,7 @@
 package pl.networkmanager.bilka.spaceship.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,9 @@ import java.util.List;
 public class User {
     private String id;
     private String username;
+    @JsonIgnore
     private String hashPwd;
     private String email;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Stat> stats;
 }
