@@ -9,17 +9,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.networkmanager.bilka.spaceship.exception.CustomError;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(CustomError.class)
     public final ResponseEntity<Map<String, List<String>>> handleCustomErrors(CustomError ex) {
         List<String> errors = Collections.singletonList(ex.getMessage());
-        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), ex.getStatusCode());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -38,18 +35,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Map<String, List<String>>> handleGeneralExceptions(Exception ex) {
         List<String> errors = Collections.singletonList(ex.getMessage());
-        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(getErrorsInternalServer(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RuntimeException.class)
     public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
         List<String> errors = Collections.singletonList(ex.getMessage());
-        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(getErrorsInternalServer(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);
+        return errorResponse;
+    }
+    private Map<String, List<String>> getErrorsInternalServer(List<String> errors) {
+        Map<String, List<String>> errorResponse = new HashMap<>();
+        System.out.println(errors.toString());
+        List<String> errorsMessage = new ArrayList<>();
+        errorsMessage.add("Something went wrong, please try later");
+        errorResponse.put("errors", errorsMessage);
         return errorResponse;
     }
 }
