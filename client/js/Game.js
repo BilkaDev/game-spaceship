@@ -1,8 +1,9 @@
-import { Spaceship } from './Spaceship.js';
-import { Enemy } from './Enemy.js';
+import { Spaceship } from './components/Spaceship.js';
+import { Enemy } from './components/Enemy.js';
 import { regsiterUser, login } from './api/auth.js';
 import { getTopStats, getUserStats } from './api/stat.js';
-import { Auth } from './Auth.js';
+import { Auth } from './view/Auth.js';
+import { Start } from './view/Start.js';
 
 const userPayload = {
 	email: 'test@example.com',
@@ -154,9 +155,7 @@ class Game {
 window.onload = function () {
 	const game = new Game();
 	const auth = new Auth();
-	// login / register View Auth
-	// if Auth START / RANKING / STATS
-	game.init(); // on click Start Game
+	const start = new Start(() => game.init());
 	// show modal ranking
 	// show modal your stats
 };
