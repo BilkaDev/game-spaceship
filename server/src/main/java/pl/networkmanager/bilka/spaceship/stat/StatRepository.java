@@ -14,15 +14,22 @@ public class StatRepository {
 
     public List<Stat> getTop() {
         return jdbcTemplate.query(
-                "SELECT s.id, s.score, u.username FROM stat AS s JOIN user AS u ON s.user_id = u.id ORDER BY s.score DESC LIMIT 100",
+                "SELECT s.id, s.score, u.username FROM stat AS s JOIN user AS u ON s.user_id = u.id ORDER BY s.score DESC LIMIT 100;",
                 BeanPropertyRowMapper.newInstance(Stat.class)
         );
 
     }
 
     public int save(Stat stats){
-        jdbcTemplate.update("INSERT INTO stat(score, user_id) VALUES(?,?)",stats.getScore(),stats.getUser_id());
+        try {
+            jdbcTemplate.update("INSERT INTO stat(score, user_id) VALUES(?,?);", stats.getScore(), stats.getUser_id());
+            return 1;
+        } catch (Exception DataIntegrityViolationException){
+            return 0;
+        }
+    }
 
-        return 1;
+    public List<Stat> getUserStatsByUserId(String userId) {
+            return jdbcTemplate.query("SELECT s.id, s.score FROM stat AS s JOIN user AS u ON s.user_id = u.id WHERE s.user_id = ? ORDER BY s.score DESC LIMIT 100;", BeanPropertyRowMapper.newInstance(Stat.class), userId);
     }
 }

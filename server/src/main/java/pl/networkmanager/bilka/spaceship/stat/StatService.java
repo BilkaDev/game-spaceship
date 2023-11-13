@@ -2,6 +2,7 @@ package pl.networkmanager.bilka.spaceship.stat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.networkmanager.bilka.spaceship.exception.BadRequestException;
 
 import java.util.List;
 
@@ -14,8 +15,15 @@ public class StatService {
         return statRepository.getTop();
     }
 
-    public int add(Stat stat) {
-        return statRepository.save(stat);
+    public String add(Stat stat) throws BadRequestException {
+        int result = statRepository.save(stat);
+        if (result == 0){
+            throw new BadRequestException("Check data provider");
+        }
+        return "Stat added";
     }
 
+    public List<Stat> getUserStats(String userId) {
+        return statRepository.getUserStatsByUserId(userId);
+    }
 }

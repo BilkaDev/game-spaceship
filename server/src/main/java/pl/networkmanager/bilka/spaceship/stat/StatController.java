@@ -3,6 +3,8 @@ package pl.networkmanager.bilka.spaceship.stat;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.networkmanager.bilka.spaceship.exception.BadRequestException;
+import pl.networkmanager.bilka.spaceship.response.ResponseMessage;
 import pl.networkmanager.bilka.spaceship.stat.dto.StatAddDto;
 
 
@@ -19,10 +21,16 @@ public class StatController {
         return statService.getTop();
     }
 
+    @GetMapping("/{userId}")
+    public List<Stat> getTop(@PathVariable("userId")String userId) {
+
+        return statService.getUserStats(userId);
+    }
+
     @PostMapping("")
-    public int addStat(@Valid @RequestBody StatAddDto statDto){
+    public ResponseMessage addStat(@Valid @RequestBody StatAddDto statDto) throws BadRequestException {
         Stat stat = new Stat();
         stat.setScore(statDto.getScore());
         stat.setUser_id(statDto.getUserId());
-        return statService.add(stat);}
+        return new ResponseMessage(statService.add(stat));}
 }
