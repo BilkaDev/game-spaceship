@@ -2,6 +2,7 @@ import { Spaceship } from './Spaceship.js';
 import { Enemy } from './Enemy.js';
 import { regsiterUser, login } from './api/auth.js';
 import { getTopStats, getUserStats } from './api/stat.js';
+import { Auth } from './Auth.js';
 
 const userPayload = {
 	email: 'test@example.com',
@@ -11,7 +12,7 @@ const userPayload = {
 //console.log(regsiterUser(userPayload));
 //console.log(login(userPayload));
 //console.log(getTopStats());
-console.log(getUserStats('4211ed4f-823c-11ee-a713-120c3c44454b').then((r) => console.log(r)));
+//console.log(getUserStats('4211ed4f-823c-11ee-a713-120c3c44454b').then((r) => console.log(r)));
 
 class Game {
 	#htmlElements = {
@@ -152,5 +153,10 @@ class Game {
 
 window.onload = function () {
 	const game = new Game();
-	game.init();
+	const auth = new Auth();
+	// login / register View Auth
+	// if Auth START / RANKING / STATS
+	game.init(); // on click Start Game
+	// show modal ranking
+	// show modal your stats
 };

@@ -30,12 +30,27 @@
                 <button class="modal__button" data-button-stats>Your Stats</button>
             </div>
         </div>
-        <div class="modal hide" data-modal-auth>
+        <div class="modal" data-modal-auth>
+            <div class="modal__content">
+                <p class="modal__text" data-auth-view>
+                    Spaceship.js
+                </p>
+                <form>
+                    <input placeholder="email" type="text">
+                    <input placeholder="password" type="password">
+                    <button type="submit" class="modal__button" data-button-submit>Login</button>
+                </form>
+                <button class="modal__button" data-button-switch>Switch to sign up</button>
+            </div>
+        </div>
+        <div class="modal hide" data-modal-start-view>
             <div class="modal__content">
                 <p class="modal__text" data-score-info>
-                    Login Page / Register page
+                    SpaceShip
                 </p>
-                <button class="modal__button" data-button-new-game>Login / register</button>
+                <button class="modal__button" data-button-start-game>Start Game</button>
+                <button class="modal__button" data-button-start-ranking>Ranking</button>
+                <button class="modal__button" data-button-start-your-stats>Your stats</button>
             </div>
         </div>
         <div class="modal hide" data-modal-ranking>
