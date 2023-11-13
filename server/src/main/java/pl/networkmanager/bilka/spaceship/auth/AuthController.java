@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.networkmanager.bilka.spaceship.response.ResponseMessage;
 import pl.networkmanager.bilka.spaceship.auth.dto.SigninDto;
 import pl.networkmanager.bilka.spaceship.auth.dto.SignupDto;
+import pl.networkmanager.bilka.spaceship.user.User;
 import pl.networkmanager.bilka.spaceship.user.UserService;
 
 
@@ -22,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseMessage login(@Valid @RequestBody SigninDto user) {
-        return new ResponseMessage(userService.login(user));
+    public User login(@Valid @RequestBody SigninDto user) throws Exception {
+        return userService.login(user);
     }
 }
