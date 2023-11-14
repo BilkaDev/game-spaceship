@@ -1,12 +1,20 @@
+import { ItemInTable } from '../components/ItemInTable.js';
+import { getTopStats } from './../api/stat.js';
+
 export class Ranking {
 	#htmlElements = {
 		container: document.querySelector('[data-modal-ranking]'),
 		buttonBack: document.querySelector('[data-button-ranking-back]'),
 		modalStart: document.querySelector('[data-modal-start-view]'),
 		modalEndGame: document.querySelector('[data-modal]'),
+		tbody: document.querySelector('[data-tbody-ranking]'),
+		errorSpan: document.querySelector('[data-error-ranking]'),
 	};
 	#isFirstGame = true;
+	#itemInTable = new ItemInTable(this.#htmlElements.tbody);
+
 	constructor() {
+		this.loadStats();
 		this.#htmlElements.buttonBack.addEventListener('click', () => {
 			this.#isFirstGame
 				? this.#htmlElements.modalStart.classList.remove('hide')
@@ -14,6 +22,22 @@ export class Ranking {
 			this.hide();
 		});
 	}
+
+	loadStats() {
+		this.#htmlElements.errorSpan.textContent = '';
+		this.#htmlElements.errorSpan.classList.add('hide');
+		getTopStats()
+			.then((res) => {
+				res.data.forEach((item, id) => {
+					this.#itemInTable.add({ rank: id, username: item.username, score: item.score });
+				});
+			})
+			.catch((e) => {
+				this.#htmlElements.errorSpan.classList.remove('hide');
+				this.#htmlElements.errorSpan.textContent = 'Something went wrong, Please try later.';
+			});
+	}
+
 	setIsFirstGame() {
 		this.#isFirstGame = false;
 	}

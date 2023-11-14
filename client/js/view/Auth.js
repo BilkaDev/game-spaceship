@@ -40,7 +40,6 @@ export class Auth {
 	}
 	async #registerUser(payload) {
 		try {
-			this.#htmlElements.errorSpan.innerHTML = '';
 			const res = await regsiterUser(payload);
 			this.#onSuccess(res.data);
 		} catch (error) {
@@ -56,7 +55,6 @@ export class Auth {
 
 	async #loginUser(payload) {
 		try {
-			this.#htmlElements.errorSpan.innerHTML = '';
 			const res = await login(payload);
 			this.#onSuccess(res.data);
 		} catch (error) {
@@ -72,6 +70,9 @@ export class Auth {
 
 	async #sumbitHandler(e) {
 		e.preventDefault();
+		this.#htmlElements.errorSpan.innerHTML = '';
+		this.#htmlElements.errorSpan.classList.add('hide');
+
 		const email = this.#getInputValue(this.#htmlElements.inputEmail);
 		const password = this.#getInputValue(this.#htmlElements.inputPassword);
 		const username = this.#getInputValue(this.#htmlElements.inputUsername);
