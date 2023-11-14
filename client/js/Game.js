@@ -4,6 +4,9 @@ import { regsiterUser, login } from './api/auth.js';
 import { getTopStats, getUserStats } from './api/stat.js';
 import { Auth } from './view/Auth.js';
 import { Start } from './view/Start.js';
+import { Ranking } from './view/Ranking.js';
+import { UserStats } from './view/UserStats.js';
+import { EndGame } from './view/EndGame.js';
 
 const userPayload = {
 	email: 'test@example.com',
@@ -21,14 +24,19 @@ class Game {
 		container: document.querySelector('[data-container]'),
 		score: document.querySelector('[data-score]'),
 		lives: document.querySelector('[data-lives]'),
-		modal: document.querySelector('[data-modal]'),
 		scoreInfo: document.querySelector('[data-score-info]'),
-		buttonNewGame: document.querySelector('[data-button-new-game]'),
 	};
 	#ship = new Spaceship(this.#htmlElements.spaceship, this.#htmlElements.container);
 	#enemies = [];
 	#lives = null;
 	#score = null;
+
+	#rankingModal = new Ranking();
+	#userStatsModal = new UserStats();
+	#endGameModal = new EndGame(() => this.#newGame());
+	#startModal = new Start(() => this.init());
+	#authModal = new Auth();
+
 	#enemiesInterval = null;
 	#checkPositionInterval = null;
 	#createEnemyInterval = null;
@@ -36,11 +44,12 @@ class Game {
 	init() {
 		this.#ship.init();
 		this.#newGame();
-		this.#htmlElements.buttonNewGame.addEventListener('click', () => this.#newGame());
+		this.#rankingModal.setIsFirstGame();
+		this.#userStatsModal.setIsFirstGame();
 	}
 
 	#newGame() {
-		this.#htmlElements.modal.classList.add('hide');
+		this.#endGameModal.hide();
 		this.#enemiesInterval = 30;
 		this.#lives = 3;
 		this.#score = 0;
@@ -52,7 +61,7 @@ class Game {
 		this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1);
 	}
 	#endGame() {
-		this.#htmlElements.modal.classList.remove('hide');
+		this.#endGameModal.show();
 		this.#htmlElements.scoreInfo.textContent = `You loose! Your score is ${this.#score}`;
 		this.#enemies.forEach((enemy) => enemy.explode());
 		this.#enemies.length = 0;
@@ -154,8 +163,4 @@ class Game {
 
 window.onload = function () {
 	const game = new Game();
-	const auth = new Auth();
-	const start = new Start(() => game.init());
-	// show modal ranking
-	// show modal your stats
 };

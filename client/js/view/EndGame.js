@@ -1,29 +1,31 @@
-export class Start {
+export class EndGame {
 	#htmlElements = {
-		container: document.querySelector('[data-modal-start-view]'),
-		buttonStart: document.querySelector('[data-button-start-game]'),
-		buttonRanking: document.querySelector('[data-button-start-ranking]'),
-		buttonUserStats: document.querySelector('[data-button-start-user-stats]'),
+		container: document.querySelector('[data-modal]'),
+		buttonNewGame: document.querySelector('[data-button-new-game]'),
+		buttonRanking: document.querySelector('[data-button-ranking]'),
+		buttonUserStats: document.querySelector('[data-button-stats]'),
 		modalRanking: document.querySelector('[data-modal-ranking]'),
 		modalUserStats: document.querySelector('[data-modal-user-stats]'),
 	};
-	constructor(init) {
-		this.#htmlElements.buttonStart.addEventListener('click', () => {
-			init();
-			this.#hide();
-		});
+	constructor(cb) {
+		this.#htmlElements.buttonNewGame.addEventListener('click', () => cb());
+		this.hide();
 
 		this.#htmlElements.buttonRanking.addEventListener('click', (e) => {
 			this.#htmlElements.modalRanking.classList.remove('hide');
-			this.#hide();
+			this.hide();
 		});
+
 		this.#htmlElements.buttonUserStats.addEventListener('click', (e) => {
 			this.#htmlElements.modalUserStats.classList.remove('hide');
-			this.#hide();
+			this.hide();
 		});
 	}
 
-	#hide() {
+	hide() {
 		this.#htmlElements.container.classList.add('hide');
+	}
+	show() {
+		this.#htmlElements.container.classList.remove('hide');
 	}
 }
