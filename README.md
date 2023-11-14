@@ -14,5 +14,3 @@ DB_PORT=3306;
 DB_TYPE=mysql;
 DB_USER=root;
 DB_USE_SSL=false;
-
-FE_CORS_ORIGIN=http://127.0.0.11:5500
