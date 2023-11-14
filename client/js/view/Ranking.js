@@ -43,7 +43,7 @@ export class Ranking {
 		getTopStats()
 			.then((res) => {
 				res.data.forEach((item, id) => {
-					this.#itemInTable.add({ rank: id, username: item.username, score: item.score });
+					this.#itemInTable.add({ rank: id + 1, username: item.username, score: item.score });
 				});
 			})
 			.catch((e) => this.#addError('Something went wrong, Please try later.'));

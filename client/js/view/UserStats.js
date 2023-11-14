@@ -39,13 +39,13 @@ export class UserStats {
 
 	loadStats() {
 		const user = loadFromStorage('user');
-		this.#clearError;
-		this.#clearTable;
+		this.#clearError();
+		this.#clearTable();
 
 		getUserStats(user.id)
 			.then((res) => {
 				res.data.forEach((item, id) => {
-					this.#itemInTable.add({ rank: id, username: item.username, score: item.score }, false);
+					this.#itemInTable.add({ rank: id + 1, username: item.username, score: item.score }, false);
 				});
 			})
 			.catch((e) => {

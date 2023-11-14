@@ -121,19 +121,55 @@ body {
 	overflow-y: auto;
 }
 
+table {
+	width: 80vw;
+	max-width: 500px;
+	border-collapse: collapse;
+	min-width: 300px;
+}
+
+th {
+	text-align: left;
+	border-bottom: white solid 1px;
+}
+
+td {
+	padding-top: 2px;
+	border-bottom: white solid 1px;
+}
+th:last-child {
+	text-align: right;
+}
+
+.td-rank {
+	width: 35px;
+}
+.td-score {
+	text-align: right;
+	white-space: nowrap;
+	max-width: 50vw;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.td-username {
+	width: 200px;
+	max-width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .table-container::-webkit-scrollbar {
-	width: 8px; /* Szerokość pionowego paska przewijania */
+	width: 8px;
 }
 
-/* Stylowanie tracka (tła) paska przewijania */
 .table-container::-webkit-scrollbar-track {
-	background-color: #f1f1f1; /* Kolor szary dla tracka */
+	background-color: #f1f1f1;
 }
 
-/* Stylowanie thumb (uchwytu) paska przewijania */
 .table-container::-webkit-scrollbar-thumb {
-	background-color: #888; /* Kolor szary dla uchwytu przewijania */
-	border-radius: 4px; /* Zaokrąglenie rogów uchwytu przewijania */
+	background-color: #888;
+	border-radius: 4px;
 }
 
 .start-view .modal__content .modal__buttons {
