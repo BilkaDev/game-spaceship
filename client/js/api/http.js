@@ -1,5 +1,5 @@
-//const apiGateway = 'https://infinite-waters-84171-1806d8c13ca6.herokuapp.com';
-const apiGateway = 'http://localhost:8081';
+const apiGateway = 'https://infinite-waters-84171-1806d8c13ca6.herokuapp.com';
+//const apiGateway = 'http://localhost:8081';
 
 const Endpoint_Auth_Register = () => 'auth/signup';
 const Endpoint_Auth_Login = () => 'auth/signin';
