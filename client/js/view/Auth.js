@@ -1,15 +1,25 @@
+import { regsiterUser, login } from './../api/auth.js';
+import { saveToStorage } from './../storage.js';
+
+//console.log(login(userPayload));
+
 export class Auth {
 	#htmlElements = {
 		container: document.querySelector('[data-modal-auth]'),
 		buttonSubmit: document.querySelector('[data-button-submit]'),
 		buttonSwitch: document.querySelector('[data-button-switch]'),
 		startGameModal: document.querySelector('[data-modal-start-view]'),
+		inputUsername: document.querySelector('[data-username-input]'),
+		inputEmail: document.querySelector('[data-email-input]'),
+		inputPassword: document.querySelector('[data-password-input]'),
+		errorSpan: document.querySelector('[data-errors-auth]'),
+		form: document.querySelector('[data-form-auth]'),
 	};
 	#isLoginMode = true;
 
 	constructor() {
 		this.#htmlElements.buttonSwitch.addEventListener('click', (e) => this.#switchHandler(e));
-		this.#htmlElements.buttonSubmit.addEventListener('click', (e) => this.#sumbitHandler(e));
+		this.#htmlElements.form.addEventListener('submit', (e) => this.#sumbitHandler(e));
 	}
 	#hide() {
 		this.#htmlElements.container.classList.add('hide');
@@ -19,22 +29,77 @@ export class Auth {
 		this.#htmlElements.startGameModal.classList.remove('hide');
 	}
 
-	#sumbitHandler(e) {
+	#getInputValue(input) {
+		return input.value;
+	}
+	async #registerUser(payload) {
+		try {
+			this.#htmlElements.errorSpan.innerHTML = '';
+			const res = await regsiterUser(payload);
+			saveToStorage('user', res.data);
+		} catch (error) {
+			this.#htmlElements.errorSpan.classList.remove('hide');
+			if (!error.response || error.response.status === 500) {
+				this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!, Please try again late';
+			}
+			for (const value of error.response.data.errors) {
+				this.#htmlElements.errorSpan.innerHTML += `${value}</br>`;
+			}
+		}
+	}
+
+	async #loginUser(payload) {
+		try {
+			this.#htmlElements.errorSpan.innerHTML = '';
+			const res = await login(payload);
+			saveToStorage('user', res.data);
+		} catch (error) {
+			this.#htmlElements.errorSpan.classList.remove('hide');
+			if (!error.response || error.response.status === 500) {
+				this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!, Please try again late';
+			}
+			for (const value of error.response.data.errors) {
+				this.#htmlElements.errorSpan.innerHTML += `${value}</br>`;
+			}
+		}
+	}
+
+	async #sumbitHandler(e) {
 		e.preventDefault();
+		const email = this.#getInputValue(this.#htmlElements.inputEmail);
+		const password = this.#getInputValue(this.#htmlElements.inputPassword);
+		const username = this.#getInputValue(this.#htmlElements.inputUsername);
+		const userPayload = {
+			email,
+			password,
+			username,
+		};
+
+		if (this.#isLoginMode) {
+			this.#loginUser(userPayload);
+		} else {
+			this.#registerUser(userPayload);
+		}
 		this.#showStartGame();
 		this.#hide();
 
-		this.#htmlElements.buttonSubmit.removeEventListener('click', (e) => this.#sumbitHandler(e));
+		this.#htmlElements.form.removeEventListener('submit', (e) => this.#sumbitHandler(e));
 		this.#htmlElements.buttonSwitch.removeEventListener('click', (e) => this.#switchHandler(e));
 	}
 
 	#switchHandler() {
 		this.#isLoginMode = !this.#isLoginMode;
-		this.#isLoginMode
-			? (this.#htmlElements.buttonSubmit.textContent = 'Login')
-			: (this.#htmlElements.buttonSubmit.textContent = 'Register');
-		this.#isLoginMode
-			? (this.#htmlElements.buttonSwitch.textContent = 'Switch to login')
-			: (this.#htmlElements.buttonSwitch.textContent = 'Switch to register');
+
+		if (this.#isLoginMode) {
+			this.#htmlElements.buttonSwitch.textContent = 'Switch to login';
+			this.#htmlElements.inputUsername.classList.add('hide');
+			this.#htmlElements.buttonSubmit.textContent = 'Login';
+			this.#htmlElements.inputUsername.disabled = true;
+		} else {
+			this.#htmlElements.inputUsername.disabled = false;
+			this.#htmlElements.inputUsername.classList.remove('hide');
+			this.#htmlElements.buttonSwitch.textContent = 'Switch to register';
+			this.#htmlElements.buttonSubmit.textContent = 'Register';
+		}
 	}
 }

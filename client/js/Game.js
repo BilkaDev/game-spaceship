@@ -1,6 +1,5 @@
 import { Spaceship } from './components/Spaceship.js';
 import { Enemy } from './components/Enemy.js';
-import { regsiterUser, login } from './api/auth.js';
 import { getTopStats, getUserStats } from './api/stat.js';
 import { Auth } from './view/Auth.js';
 import { Start } from './view/Start.js';
@@ -8,13 +7,6 @@ import { Ranking } from './view/Ranking.js';
 import { UserStats } from './view/UserStats.js';
 import { EndGame } from './view/EndGame.js';
 
-const userPayload = {
-	email: 'test@example.com',
-	password: '123456',
-	username: 'Test',
-};
-//console.log(regsiterUser(userPayload));
-//console.log(login(userPayload));
 //console.log(getTopStats());
 //console.log(getUserStats('4211ed4f-823c-11ee-a713-120c3c44454b').then((r) => console.log(r)));
 

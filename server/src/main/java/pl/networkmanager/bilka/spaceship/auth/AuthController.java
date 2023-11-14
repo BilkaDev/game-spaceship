@@ -17,9 +17,9 @@ public class AuthController {
     UserService userService;
 
     @PostMapping("/signup")
-    public ResponseMessage register(@Valid @RequestBody SignupDto user) throws Exception {
+    public User register(@Valid @RequestBody SignupDto user) throws Exception {
 
-        return new ResponseMessage(userService.createUser(user));
+        return userService.createUser(user);
     }
 
     @PostMapping("/signin")

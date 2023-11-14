@@ -20,16 +20,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, List<String>>> handleValidationErrors(MethodArgumentNotValidException ex) {
+        List<String> errors = new ArrayList<>();
 
-        Map<String, String> errorMap = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> {
-            System.out.println(error);
-            System.out.println("test" + error);
-            errorMap.put(error.getField(), error.getDefaultMessage());
+            errors.add(error.getField() + " " + error.getDefaultMessage());
         });
 
-        return new ResponseEntity<>(errorMap, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
@@ -49,6 +47,7 @@ public class GlobalExceptionHandler {
         errorResponse.put("errors", errors);
         return errorResponse;
     }
+
     private Map<String, List<String>> getErrorsInternalServer(List<String> errors) {
         Map<String, List<String>> errorResponse = new HashMap<>();
         System.out.println(errors.toString());

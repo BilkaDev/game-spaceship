@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public String createUser(SignupDto payload) throws Exception {
+    public User createUser(SignupDto payload) throws Exception {
         // get user .check user email if email is exist throw error "A user with that email already exists"
         User checkUser = userRepository.getByEmail(payload.getEmail());
         if (checkUser != null){
@@ -29,7 +29,9 @@ public class UserService {
 
         // save user in db
         userRepository.save(user);
-        return "User created!";
+        User responseUser = userRepository.getByEmail(user.getEmail());
+        responseUser.setHashPwd(null);
+        return responseUser;
     }
 
 
