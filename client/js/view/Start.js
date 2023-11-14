@@ -20,6 +20,7 @@ export class Start {
 		});
 		this.#htmlElements.buttonUserStats.addEventListener('click', (e) => {
 			this.modalUserStats.show();
+			this.modalUserStats.loadStats();
 			this.#hide();
 		});
 	}
