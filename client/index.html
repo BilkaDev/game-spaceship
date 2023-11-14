@@ -47,58 +47,62 @@
                 <button class="modal__button" data-button-switch>Switch to sign up</button>
             </div>
         </div>
-        <div class="modal hide" data-modal-start-view>
+        <div class="modal start-view hide" data-modal-start-view>
             <div class="modal__content">
                 <p class="modal__text" data-start-title>
                     Spaceship.js
                 </p>
-                <button class="modal__button" data-button-start-game>Start Game</button>
-                <button class="modal__button" data-button-start-ranking>Ranking</button>
-                <button class="modal__button" data-button-start-user-stats>Your stats</button>
+                <div class="modal__buttons">
+                    <button class="modal__button" data-button-start-game>Start Game</button>
+                    <button class="modal__button" data-button-start-ranking>Ranking</button>
+                    <button class="modal__button" data-button-start-user-stats>Your stats</button>
+                </div>
             </div>
         </div>
-        <div class="modal hide" data-modal-ranking>
+        <div class="modal ranking hide" data-modal-ranking>
             <div class="modal__content">
                 <p class="modal__text" data-ranking-title>
                     Ranking
                 </p>
-                <span data-error-ranking></span>
-                <table>
-                    <thead data-thead-ranking>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody data-tbody-ranking>
-                    </tbody>
-                </table>
+                <span class="hide error-message" data-error-ranking></span>
+                <div class="table-container">
+                    <table>
+                        <thead data-thead-ranking>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody data-tbody-ranking>
+                        </tbody>
+                    </table>
+                </div>
                 <button class="modal__button" data-button-ranking-back>Back</button>
             </div>
         </div>
-        <div class="modal hide" data-modal-user-stats>
+        <div class="modal user-stats hide" data-modal-user-stats>
             <div class="modal__content">
                 <p class="modal__text" data-user-stats-title>
                     Your Stats
                 </p>
-                <span class="hide" data-error-user-stats></span>
-                <table>
-                    <thead data-thead-user-stats>
-                        <tr>
-                            <th>#</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody data-tbody-user-stats>
-                    </tbody>
-                </table>
+                <span class="hide error-message" data-error-user-stats></span>
+                <div class="table-container">
+                    <table>
+                        <thead data-thead-user-stats>
+                            <tr>
+                                <th>#</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody data-tbody-user-stats>
+                        </tbody>
+                    </table>
+                </div>
                 <button class="modal__button" data-button-user-stats-back>Back</button>
             </div>
-        </div>
-    </div>
-    <script src="./node_modules/axios/dist/axios.min.js"></script>
-    <script type="module" src="./js/Game.js"></script>
+            <script src="./node_modules/axios/dist/axios.min.js"></script>
+            <script type="module" src="./js/Game.js"></script>
 </body>
 
 </html>

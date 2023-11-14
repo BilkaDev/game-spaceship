@@ -92,6 +92,7 @@ body {
 	justify-content: space-between;
 	height: 80%;
 }
+
 .auth .modal__content form {
 	display: flex;
 	flex-direction: column;
@@ -103,6 +104,43 @@ body {
 	background-color: black;
 	color: var(--primary-color);
 	font-size: 14px;
+}
+
+.start-view .modal__content,
+.ranking .modal__content,
+.user-stats .modal__content {
+	display: flex;
+	flex-direction: column;
+	height: 80%;
+	gap: 20px;
+}
+
+.user-stats .modal__content .table-container,
+.ranking .modal__content .table-container {
+	flex: 1;
+	overflow-y: auto;
+}
+
+.table-container::-webkit-scrollbar {
+	width: 8px; /* Szerokość pionowego paska przewijania */
+}
+
+/* Stylowanie tracka (tła) paska przewijania */
+.table-container::-webkit-scrollbar-track {
+	background-color: #f1f1f1; /* Kolor szary dla tracka */
+}
+
+/* Stylowanie thumb (uchwytu) paska przewijania */
+.table-container::-webkit-scrollbar-thumb {
+	background-color: #888; /* Kolor szary dla uchwytu przewijania */
+	border-radius: 4px; /* Zaokrąglenie rogów uchwytu przewijania */
+}
+
+.start-view .modal__content .modal__buttons {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .spaceship {
