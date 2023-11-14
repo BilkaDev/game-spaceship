@@ -32,6 +32,13 @@ export class Auth {
 	#getInputValue(input) {
 		return input.value;
 	}
+	#clearError() {
+		this.#htmlElements.errorSpan.innerHTML = '';
+		this.#htmlElements.errorSpan.classList.add('hide');
+	}
+	#addError() {
+		this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!, Please try again late';
+	}
 
 	#onSuccess(data) {
 		this.#showStartGame();
@@ -45,7 +52,8 @@ export class Auth {
 		} catch (error) {
 			this.#htmlElements.errorSpan.classList.remove('hide');
 			if (!error.response || error.response.status === 500) {
-				this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!, Please try again late';
+				this.#addError();
+				return;
 			}
 			for (const value of error.response.data.errors) {
 				this.#htmlElements.errorSpan.innerHTML += `${value}</br>`;
@@ -60,7 +68,7 @@ export class Auth {
 		} catch (error) {
 			this.#htmlElements.errorSpan.classList.remove('hide');
 			if (!error.response || error.response.status === 500) {
-				this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!, Please try again late';
+				this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!Please try again late';
 			}
 			for (const value of error.response.data.errors) {
 				this.#htmlElements.errorSpan.innerHTML += `${value}</br>`;
@@ -70,8 +78,7 @@ export class Auth {
 
 	async #sumbitHandler(e) {
 		e.preventDefault();
-		this.#htmlElements.errorSpan.innerHTML = '';
-		this.#htmlElements.errorSpan.classList.add('hide');
+		this.#clearError();
 
 		const email = this.#getInputValue(this.#htmlElements.inputEmail);
 		const password = this.#getInputValue(this.#htmlElements.inputPassword);

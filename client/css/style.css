@@ -1,189 +1,204 @@
-
 :root {
-    --primary-color: #09fcfd;
-    --secondary-color: #510303;
-    --size-units: 64px;
-    --ships-animation-time: 300ms;
-    --explosion-animation-time: 600ms;
-
-
+	--primary-color: #09fcfd;
+	--secondary-color: #510303;
+	--size-units: 64px;
+	--ships-animation-time: 300ms;
+	--explosion-animation-time: 600ms;
 }
 
-
-*, *::after, *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-    overflow: hidden;
-
+	font-family: 'Roboto', sans-serif;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    position: relative;
-    overflow: hidden;
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
+	position: relative;
+	overflow: hidden;
 }
 
 .hit {
-    background-color: var(--secondary-color);
+	background-color: var(--secondary-color);
 }
 
 .information {
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    font-size: 32px;
-    z-index: 2;
-    position: relative;
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	padding: 20px;
+	font-size: 32px;
+	z-index: 2;
+	position: relative;
 }
 
 .modal {
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    display: flex;
-    color: #fff;
-    justify-content: center;
-    align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: flex;
+	color: #fff;
+	justify-content: center;
+	align-items: center;
 }
 
 .modal__content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-
+	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 
 .modal__text {
-    font-size: 42px;
-    text-align: center;
+	font-size: 42px;
+	text-align: center;
 }
 
 .modal__button {
-    padding: 30px 15px;
-    background-color: transparent;
-    border: 3px solid var(--primary-color);
-    color: var(--primary-color);
-    cursor: pointer;
-    font-size: 42px;
-    margin-top: 20px;
-    outline: none;
-    transition: box-shadow 0.1s ease-in;
+	padding: 10px 10px;
+	background-color: transparent;
+	border: 3px solid var(--primary-color);
+	color: var(--primary-color);
+	cursor: pointer;
+	font-size: 36px;
+	margin-top: 20px;
+	outline: none;
+	transition: box-shadow 0.1s ease-in;
+}
+.error-message {
+	color: red;
+	font-size: 12px;
+}
+.modal__button:hover {
+	box-shadow: 0 0 20px 5px var(--primary-color);
 }
 
-.modal__button:hover {
-    box-shadow: 0 0 20px 5px var(--primary-color);
+.auth .modal__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 80%;
+}
+.auth .modal__content form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.auth .modal__content form input {
+	padding: 5px;
+	background-color: black;
+	color: var(--primary-color);
+	font-size: 14px;
 }
 
 .spaceship {
-    width: var(--size-units);
-    height: var(--size-units);
-    background-image: url('../img/ship.png');
-    animation: move-8-units-X var(--ships-animation-time) steps(8) infinite;
-    position: fixed;
-
-
+	width: var(--size-units);
+	height: var(--size-units);
+	background-image: url('../img/ship.png');
+	animation: move-8-units-X var(--ships-animation-time) steps(8) infinite;
+	position: fixed;
 }
 
 .enemy {
-    width: var(--size-units);
-    height: var(--size-units);
-    background-image: url('../img/enemy.png');
-    animation: move-5-units-X var(--ships-animation-time) steps(5) infinite;
-    position: fixed;
-    z-index: 1;
+	width: var(--size-units);
+	height: var(--size-units);
+	background-image: url('../img/enemy.png');
+	animation: move-5-units-X var(--ships-animation-time) steps(5) infinite;
+	position: fixed;
+	z-index: 1;
 }
 
 .enemy--big {
-    width: calc(2 * var(--size-units));
-    height: calc(2 * var(--size-units));
-    background-image: url('../img/enemy-big.png');
-    animation: move-16-units-X var(--ships-animation-time) steps(8) infinite;
-    position: fixed;
+	width: calc(2 * var(--size-units));
+	height: calc(2 * var(--size-units));
+	background-image: url('../img/enemy-big.png');
+	animation: move-16-units-X var(--ships-animation-time) steps(8) infinite;
+	position: fixed;
 }
 
 .explosion {
-    width: var(--size-units);
-    height: var(--size-units);
-    background-image: url('../img/explosion.png');
-    animation: move-17-units-X var(--explosion-animation-time) steps(17) forwards;
-    position: fixed;
+	width: var(--size-units);
+	height: var(--size-units);
+	background-image: url('../img/explosion.png');
+	animation: move-17-units-X var(--explosion-animation-time) steps(17) forwards;
+	position: fixed;
 }
 
 .explosion--big {
-    width: calc(2 * var(--size-units));
-    height: calc(2 * var(--size-units));
-    background-image: url('../img/explosion-big.png');
-    animation: move-34-units-X var(--explosion-animation-time) steps(17) forwards;
-    position: fixed;
+	width: calc(2 * var(--size-units));
+	height: calc(2 * var(--size-units));
+	background-image: url('../img/explosion-big.png');
+	animation: move-34-units-X var(--explosion-animation-time) steps(17) forwards;
+	position: fixed;
 }
 
 .missile {
-    background-image: url('../img/missile.png');
-    background-size: cover;
-    width: 12px;
-    height: 24px;
-    position: absolute;
+	background-image: url('../img/missile.png');
+	background-size: cover;
+	width: 12px;
+	height: 24px;
+	position: absolute;
 }
 
 @keyframes move-8-units-X {
-    from {
-        background-position-x: 0;
-    }
-    to {
-        background-position-x: calc(-8 * var(--size-units));
-    }
+	from {
+		background-position-x: 0;
+	}
+	to {
+		background-position-x: calc(-8 * var(--size-units));
+	}
 }
 
 @keyframes move-16-units-X {
-    from {
-        background-position-x: 0;
-    }
-    to {
-        background-position-x: calc(-16 * var(--size-units));
-    }
+	from {
+		background-position-x: 0;
+	}
+	to {
+		background-position-x: calc(-16 * var(--size-units));
+	}
 }
 
 @keyframes move-5-units-X {
-    from {
-        background-position-x: 0;
-    }
-    to {
-        background-position-x: calc(-5 * 2 * var(--size-units));
-    }
+	from {
+		background-position-x: 0;
+	}
+	to {
+		background-position-x: calc(-5 * 2 * var(--size-units));
+	}
 }
 
 @keyframes move-17-units-X {
-    from {
-        background-position-x: 0;
-    }
-    to {
-        background-position-x: calc(-17 * var(--size-units));
-    }
+	from {
+		background-position-x: 0;
+	}
+	to {
+		background-position-x: calc(-17 * var(--size-units));
+	}
 }
 
 @keyframes move-34-units-X {
-    from {
-        background-position-x: 0;
-    }
-    to {
-        background-position-x: calc(-34 * var(--size-units));
-    }
+	from {
+		background-position-x: 0;
+	}
+	to {
+		background-position-x: calc(-34 * var(--size-units));
+	}
 }
 
 .hide {
-    display: none;
+	display: none;
 }
-
