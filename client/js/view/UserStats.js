@@ -13,7 +13,6 @@ export class UserStats {
 	};
 	#isFirstGame = true;
 	constructor() {
-		this.loadStats();
 		this.#htmlElements.buttonBack.addEventListener('click', () => {
 			this.#isFirstGame
 				? this.#htmlElements.modalStart.classList.remove('hide')
