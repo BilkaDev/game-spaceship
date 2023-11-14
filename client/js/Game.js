@@ -20,12 +20,24 @@ class Game {
 	#enemies = [];
 	#lives = null;
 	#score = null;
-
+	#authModal = new Auth();
 	#rankingModal = new Ranking();
 	#userStatsModal = new UserStats();
-	#endGameModal = new EndGame(() => this.#newGame());
-	#startModal = new Start(() => this.init());
-	#authModal = new Auth();
+
+	#endGameModal = new EndGame(
+		{
+			modalRanking: this.#rankingModal,
+			modalUserStats: this.#userStatsModal,
+		},
+		() => this.#newGame()
+	);
+	#startModal = new Start(
+		{
+			modalRanking: this.#rankingModal,
+			modalUserStats: this.#userStatsModal,
+		},
+		() => this.init()
+	);
 
 	#enemiesInterval = null;
 	#checkPositionInterval = null;

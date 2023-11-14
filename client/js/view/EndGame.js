@@ -4,20 +4,22 @@ export class EndGame {
 		buttonNewGame: document.querySelector('[data-button-new-game]'),
 		buttonRanking: document.querySelector('[data-button-ranking]'),
 		buttonUserStats: document.querySelector('[data-button-stats]'),
-		modalRanking: document.querySelector('[data-modal-ranking]'),
-		modalUserStats: document.querySelector('[data-modal-user-stats]'),
 	};
-	constructor(cb) {
+	constructor({ modalRanking, modalUserStats }, cb) {
+		this.modalRanking = modalRanking;
+		this.modalUserStats = modalUserStats;
 		this.#htmlElements.buttonNewGame.addEventListener('click', () => cb());
 		this.hide();
 
 		this.#htmlElements.buttonRanking.addEventListener('click', (e) => {
-			this.#htmlElements.modalRanking.classList.remove('hide');
+			this.modalRanking.show();
+			this.modalRanking.loadStats();
 			this.hide();
 		});
 
 		this.#htmlElements.buttonUserStats.addEventListener('click', (e) => {
-			this.#htmlElements.modalUserStats.classList.remove('hide');
+			this.modalUserStats.show();
+			this.modalUserStats.loadStats();
 			this.hide();
 		});
 	}

@@ -23,19 +23,30 @@ export class Ranking {
 		});
 	}
 
-	loadStats() {
+	#clearTable() {
+		this.#htmlElements.tbody.innerHTML = '';
+	}
+
+	#addError(message) {
+		this.#htmlElements.errorSpan.classList.remove('hide');
+		this.#htmlElements.errorSpan.textContent = message;
+	}
+
+	#clearError() {
 		this.#htmlElements.errorSpan.textContent = '';
 		this.#htmlElements.errorSpan.classList.add('hide');
+	}
+
+	loadStats() {
+		this.#clearError();
+		this.#clearTable();
 		getTopStats()
 			.then((res) => {
 				res.data.forEach((item, id) => {
 					this.#itemInTable.add({ rank: id, username: item.username, score: item.score });
 				});
 			})
-			.catch((e) => {
-				this.#htmlElements.errorSpan.classList.remove('hide');
-				this.#htmlElements.errorSpan.textContent = 'Something went wrong, Please try later.';
-			});
+			.catch((e) => this.#addError('Something went wrong, Please try later.'));
 	}
 
 	setIsFirstGame() {
