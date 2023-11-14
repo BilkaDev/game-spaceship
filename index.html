@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Game Spaceship</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,97 +14,98 @@
 </head>
 
 <body>
-<div class="container" data-container>
-    <div class="spaceship" data-spaceship></div>
-    <section class="information">
-        <article class="information-content" data-score>Score: 0</article>
-        <article class="information-content" data-lives>Lives: 3</article>
-    </section>
-    <div class="modal hide" data-modal>
-        <div class="modal__content">
-            <p class="modal__text" data-score-info>
-                You loose! Start new game!
-            </p>
-            <button class="modal__button" data-button-new-game>New Game</button>
-            <button class="modal__button" data-button-ranking>Ranking</button>
-            <button class="modal__button" data-button-stats>Your Stats</button>
+    <div class="container" data-container>
+        <div class="spaceship" data-spaceship></div>
+        <section class="information">
+            <article class="information-content" data-score>Score: 0</article>
+            <article class="information-content" data-lives>Lives: 3</article>
+        </section>
+        <div class="modal hide" data-modal>
+            <div class="modal__content">
+                <p class="modal__text" data-score-info>
+                    You loose! Start new game!
+                </p>
+                <button class="modal__button" data-button-new-game>New Game</button>
+                <button class="modal__button" data-button-ranking>Ranking</button>
+                <button class="modal__button" data-button-stats>Your Stats</button>
+            </div>
         </div>
-    </div>
-    <div class="modal auth" data-modal-auth>
-        <div class="modal__content">
-            <p class="modal__text" data-auth-view>
-                Spaceship.js
-            </p>
-            <form data-form-auth aria-checked="true">
-                <input class="hide" disabled name="username" placeholder="Username" type="text" required
-                       minlength="2" maxlength="100" data-username-input>
-                <input name="email" placeholder="Email" type="email" maxlength="100" data-email-input required>
-                <input name="password" placeholder="Password" type="password" minlength="6" maxlength="100"
-                       data-password-input required>
-                <span class="hide error-message" data-errors-auth></span>
-                <button type="submit" class="modal__button" data-button-submit>Login</button>
-            </form>
-            <button class="modal__button" data-button-switch>Switch to sign up</button>
+        <div class="modal auth" data-modal-auth>
+            <div class="modal__content">
+                <p class="modal__text" data-auth-view>
+                    Spaceship.js
+                </p>
+                <form data-form-auth aria-checked="true">
+                    <input class="hide" disabled name="username" placeholder="Username" type="text" required
+                        minlength="2" maxlength="100" data-username-input>
+                    <input value="test@example.com" name="email" placeholder="Email" type="email" maxlength="100"
+                        data-email-input required>
+                    <input value="123456" name="password" placeholder="Password" type="password" minlength="6"
+                        maxlength="100" data-password-input required>
+                    <span class="hide error-message" data-errors-auth></span>
+                    <button type="submit" class="modal__button" data-button-submit>Login</button>
+                </form>
+                <button class="modal__button" data-button-switch>Switch to sign up</button>
+            </div>
         </div>
-    </div>
-    <div class="modal start-view hide" data-modal-start-view>
-        <div class="modal__content">
-            <p class="modal__text" data-start-title>
-                Spaceship.js
-            </p>
-            <div class="modal__buttons">
-                <button class="modal__button" data-button-start-game>Start Game</button>
-                <button class="modal__button" data-button-start-ranking>Ranking</button>
-                <button class="modal__button" data-button-start-user-stats>Your stats</button>
+        <div class="modal start-view hide" data-modal-start-view>
+            <div class="modal__content">
+                <p class="modal__text" data-start-title>
+                    Spaceship.js
+                </p>
+                <div class="modal__buttons">
+                    <button class="modal__button" data-button-start-game>Start Game</button>
+                    <button class="modal__button" data-button-start-ranking>Ranking</button>
+                    <button class="modal__button" data-button-start-user-stats>Your stats</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal ranking hide" data-modal-ranking>
+            <div class="modal__content">
+                <p class="modal__text" data-ranking-title>
+                    Ranking
+                </p>
+                <span class="hide error-message" data-error-ranking></span>
+                <div class="table-container">
+                    <table>
+                        <thead data-thead-ranking>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody data-tbody-ranking>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="modal__button" data-button-ranking-back>Back</button>
+            </div>
+        </div>
+        <div class="modal user-stats hide" data-modal-user-stats>
+            <div class="modal__content">
+                <p class="modal__text" data-user-stats-title>
+                    Your Stats
+                </p>
+                <span class="hide error-message" data-error-user-stats></span>
+                <div class="table-container">
+                    <table>
+                        <thead data-thead-user-stats>
+                            <tr>
+                                <th>#</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody data-tbody-user-stats>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="modal__button" data-button-user-stats-back>Back</button>
             </div>
         </div>
     </div>
-    <div class="modal ranking hide" data-modal-ranking>
-        <div class="modal__content">
-            <p class="modal__text" data-ranking-title>
-                Ranking
-            </p>
-            <span class="hide error-message" data-error-ranking></span>
-            <div class="table-container">
-                <table>
-                    <thead data-thead-ranking>
-                    <tr>
-                        <th>#</th>
-                        <th>Username</th>
-                        <th>Score</th>
-                    </tr>
-                    </thead>
-                    <tbody data-tbody-ranking>
-                    </tbody>
-                </table>
-            </div>
-            <button class="modal__button" data-button-ranking-back>Back</button>
-        </div>
-    </div>
-    <div class="modal user-stats hide" data-modal-user-stats>
-        <div class="modal__content">
-            <p class="modal__text" data-user-stats-title>
-                Your Stats
-            </p>
-            <span class="hide error-message" data-error-user-stats></span>
-            <div class="table-container">
-                <table>
-                    <thead data-thead-user-stats>
-                    <tr>
-                        <th>#</th>
-                        <th>Score</th>
-                    </tr>
-                    </thead>
-                    <tbody data-tbody-user-stats>
-                    </tbody>
-                </table>
-            </div>
-            <button class="modal__button" data-button-user-stats-back>Back</button>
-        </div>
-    </div>
-</div>
-<script src="./client/node_modules/axios/dist/axios.min.js"></script>
-<script type="module" src="./client/js/Game.js"></script>
+    <script src="./client/node_modules/axios/dist/axios.min.js"></script>
+    <script type="module" src="./client/js/Game.js"></script>
 </body>
 
 </html>
