@@ -1,11 +1,12 @@
 import { Spaceship } from './components/Spaceship.js';
 import { Enemy } from './components/Enemy.js';
-import { getTopStats, getUserStats } from './api/stat.js';
+import { getTopStats, getUserStats, saveStat } from './api/stat.js';
 import { Auth } from './view/Auth.js';
 import { Start } from './view/Start.js';
 import { Ranking } from './view/Ranking.js';
 import { UserStats } from './view/UserStats.js';
 import { EndGame } from './view/EndGame.js';
+import { loadFromStorage } from './storage.js';
 
 //console.log(getTopStats());
 //console.log(getUserStats('4211ed4f-823c-11ee-a713-120c3c44454b').then((r) => console.log(r)));
@@ -52,11 +53,22 @@ class Game {
 		this.#createEnemyInterval = setInterval(() => this.#randomNewEnemy(), 1000);
 		this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1);
 	}
+
+	#saveStat() {
+		const user = loadFromStorage('user');
+		const payload = {
+			score: this.#score,
+			userId: user.id,
+		};
+		saveStat(payload);
+	}
+
 	#endGame() {
 		this.#endGameModal.show();
 		this.#htmlElements.scoreInfo.textContent = `You loose! Your score is ${this.#score}`;
 		this.#enemies.forEach((enemy) => enemy.explode());
 		this.#enemies.length = 0;
+		this.#saveStat();
 		clearInterval(this.#createEnemyInterval);
 		clearInterval(this.#checkPositionInterval);
 	}

@@ -32,11 +32,17 @@ export class Auth {
 	#getInputValue(input) {
 		return input.value;
 	}
+
+	#onSuccess(data) {
+		this.#showStartGame();
+		this.#hide();
+		saveToStorage('user', data);
+	}
 	async #registerUser(payload) {
 		try {
 			this.#htmlElements.errorSpan.innerHTML = '';
 			const res = await regsiterUser(payload);
-			saveToStorage('user', res.data);
+			this.#onSuccess(res.data);
 		} catch (error) {
 			this.#htmlElements.errorSpan.classList.remove('hide');
 			if (!error.response || error.response.status === 500) {
@@ -52,7 +58,7 @@ export class Auth {
 		try {
 			this.#htmlElements.errorSpan.innerHTML = '';
 			const res = await login(payload);
-			saveToStorage('user', res.data);
+			this.#onSuccess(res.data);
 		} catch (error) {
 			this.#htmlElements.errorSpan.classList.remove('hide');
 			if (!error.response || error.response.status === 500) {
@@ -80,8 +86,6 @@ export class Auth {
 		} else {
 			this.#registerUser(userPayload);
 		}
-		this.#showStartGame();
-		this.#hide();
 
 		this.#htmlElements.form.removeEventListener('submit', (e) => this.#sumbitHandler(e));
 		this.#htmlElements.buttonSwitch.removeEventListener('click', (e) => this.#switchHandler(e));

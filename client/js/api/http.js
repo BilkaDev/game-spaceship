@@ -7,7 +7,8 @@ const Endpoint_Auth_Login = () => 'auth/signin';
 const Endpoint_Profile = () => 'users/me';
 
 const Endpoint_Stats_TOP = () => 'stats/top';
-const Endpoint_Stats_user = (id) => `stats/${id}`;
+const Endpoint_Stats_User = (id) => `stats/${id}`;
+const Endpoint_Stat_Save = () => 'stats';
 
 class HTTP {
 	_http = this._createNewInstance('');
@@ -41,5 +42,6 @@ export const userEndpoint = {
 
 export const statEndpoint = {
 	getTopStats: () => Endpoint_Stats_TOP(),
-	getUserStats: (id) => Endpoint_Stats_user(id),
+	getUserStats: (id) => Endpoint_Stats_User(id),
+	saveStat: () => Endpoint_Stat_Save(),
 };
