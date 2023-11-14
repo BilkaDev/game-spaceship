@@ -1,8 +1,6 @@
 import { regsiterUser, login } from './../api/auth.js';
 import { saveToStorage } from './../storage.js';
 
-//console.log(login(userPayload));
-
 export class Auth {
 	#htmlElements = {
 		container: document.querySelector('[data-modal-auth]'),
@@ -69,6 +67,7 @@ export class Auth {
 			this.#htmlElements.errorSpan.classList.remove('hide');
 			if (!error.response || error.response.status === 500) {
 				this.#htmlElements.errorSpan.innerHTML = 'Something went wrong!Please try again late';
+				return;
 			}
 			for (const value of error.response.data.errors) {
 				this.#htmlElements.errorSpan.innerHTML += `${value}</br>`;
