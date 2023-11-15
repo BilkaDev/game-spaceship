@@ -1,4 +1,5 @@
 import { regsiterUser, login } from './../api/auth.js';
+import { getTopStats } from './../api/stat.js';
 import { saveToStorage } from './../storage.js';
 
 export class Auth {
@@ -12,13 +13,29 @@ export class Auth {
 		inputPassword: document.querySelector('[data-password-input]'),
 		errorSpan: document.querySelector('[data-errors-auth]'),
 		form: document.querySelector('[data-form-auth]'),
+		runningText: document.querySelector('[data-text-running]'),
 	};
 	#isLoginMode = true;
 
 	constructor() {
+		this.#runServer();
 		this.#htmlElements.buttonSwitch.addEventListener('click', (e) => this.#switchHandler(e));
 		this.#htmlElements.form.addEventListener('submit', (e) => this.#sumbitHandler(e));
 	}
+
+	#runServer() {
+		getTopStats()
+			.then((r) => {
+				if (r.status === 200) {
+					this.#htmlElements.runningText.innerHTML = '';
+				}
+			})
+			.catch((e) => {
+				console.log('error');
+				setTimeout(this.#runServer(), 1000);
+			});
+	}
+
 	#hide() {
 		this.#htmlElements.container.classList.add('hide');
 	}
