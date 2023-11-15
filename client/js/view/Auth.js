@@ -30,9 +30,8 @@ export class Auth {
 					this.#htmlElements.runningText.innerHTML = '';
 				}
 			})
-			.catch((e) => {
-				console.log('error');
-				setTimeout(this.#runServer(), 1000);
+			.catch(() => {
+				setTimeout(() => this.#runServer(), 1000);
 			});
 	}
 
