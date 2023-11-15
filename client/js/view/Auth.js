@@ -31,8 +31,7 @@ export class Auth {
 				}
 			})
 			.catch((e) => {
-				console.log('error');
-				setTimeout(this.#runServer(), 1000);
+				setTimeout(() => this.#runServer(), 1000);
 			});
 	}
 

@@ -1,6 +1,6 @@
 ﻿# Game-spaceship
 
-game from the course
+Spaceship game written in JS and Java spring boot
 
 view page:
 https://bilkadev.github.io/Game-spaceship/
