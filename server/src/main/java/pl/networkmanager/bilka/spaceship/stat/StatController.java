@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.networkmanager.bilka.spaceship.exception.BadRequestException;
-import pl.networkmanager.bilka.spaceship.response.ResponseMessage;
+import pl.networkmanager.bilka.spaceship.stat.response.ResponseMessage;
 import pl.networkmanager.bilka.spaceship.stat.dto.StatAddDto;
 
 

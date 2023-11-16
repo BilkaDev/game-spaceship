@@ -1,4 +1,4 @@
-package pl.networkmanager.bilka.spaceship.response;
+package pl.networkmanager.bilka.spaceship.stat.response;
 
 import lombok.Data;
 
