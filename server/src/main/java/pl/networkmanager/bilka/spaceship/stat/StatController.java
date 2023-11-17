@@ -1,36 +1,37 @@
 package pl.networkmanager.bilka.spaceship.stat;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.networkmanager.bilka.spaceship.exception.BadRequestException;
+import pl.networkmanager.bilka.spaceship.exception.NotFoundException;
 import pl.networkmanager.bilka.spaceship.stat.response.ResponseMessage;
 import pl.networkmanager.bilka.spaceship.stat.dto.StatAddDto;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stats")
+@RequiredArgsConstructor
+@RequestMapping("/api/stats")
 public class StatController {
-    @Autowired
-    StatService statService;
+    private final StatService statService;
 
     @GetMapping("/top")
-    public List<Stat> getTop() {
-        return statService.getTop();
+    public ResponseEntity<List<Stat>> getTop() {
+        return ResponseEntity.ok(statService.getTop());
     }
 
-    @GetMapping("/{userId}")
-    public List<Stat> getTop(@PathVariable("userId")String userId) {
-
-        return statService.getUserStats(userId);
+    @GetMapping("/user")
+    public ResponseEntity<List<Stat>> getUserTop(Principal principal) {
+        return ResponseEntity.ok(statService.getUserStats(principal.getName()));
     }
 
     @PostMapping("")
-    public ResponseMessage addStat(@Valid @RequestBody StatAddDto statDto) throws BadRequestException {
-        Stat stat = new Stat();
-        stat.setScore(statDto.getScore());
-        stat.setUser_id(statDto.getUserId());
-        return new ResponseMessage(statService.add(stat));}
+    public ResponseEntity<ResponseMessage> addStat(@Valid @RequestBody StatAddDto statDto, Principal principal) throws NotFoundException {
+        var responseMessage = statService.add(statDto, principal.getName());
+
+        return ResponseEntity.ok(responseMessage);
+    }
 }

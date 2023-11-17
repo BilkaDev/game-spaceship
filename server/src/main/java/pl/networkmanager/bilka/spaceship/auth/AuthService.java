@@ -16,7 +16,7 @@ import pl.networkmanager.bilka.spaceship.user.UserRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -28,7 +28,7 @@ public class AuthenticationService {
             throw new NotFoundException("A user with that email already exists");
         }
         var user = User.builder()
-                .username(payload.getUsername())
+                .name(payload.getName())
                 .email(payload.getEmail())
                 .password(passwordEncoder.encode(payload.getPassword())).build();
         userRepository.save(user);

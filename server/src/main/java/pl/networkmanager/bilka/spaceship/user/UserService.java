@@ -10,18 +10,24 @@ import pl.networkmanager.bilka.spaceship.user.response.CurrentUserResponse;
 public class UserService {
     private final UserRepository userRepository;
 
-    public CurrentUserResponse getCurrentUser(String email) throws NotFoundException {
+    public User getCurrentUser(String email) throws NotFoundException {
         try {
-
-            var user = userRepository.findByEmail(email).orElseThrow();
-            return CurrentUserResponse
-                    .builder()
-                    .userId(user.getId())
-                    .username(user.getTrueUsername())
-                    .email(user.getEmail())
-                    .build();
+            return userRepository.findByEmail(email).orElseThrow();
         } catch (Exception e) {
             throw new NotFoundException("Not found user.");
         }
+    }
+
+    public CurrentUserResponse getProfile(String email) throws NotFoundException {
+
+        var user = getCurrentUser(email);
+
+        return CurrentUserResponse
+                .builder()
+                .userId(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .build();
+
     }
 }

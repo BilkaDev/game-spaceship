@@ -12,12 +12,12 @@ import java.security.Principal;
 
 
 @RestController
-@RequestMapping("/api/users")
 @RequiredArgsConstructor
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
     @GetMapping("/me")
     public ResponseEntity<CurrentUserResponse> profile(Principal principal) throws NotFoundException {
-        return ResponseEntity.ok(userService.getCurrentUser(principal.getName()));
+        return ResponseEntity.ok(userService.getProfile(principal.getName()));
     }
 }

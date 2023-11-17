@@ -13,7 +13,7 @@ import pl.networkmanager.bilka.spaceship.auth.response.AuthenticationResponse;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final AuthenticationService service;
+    private final AuthService service;
 
     @PostMapping("/signup")
     public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody SignupDto payload) throws Exception {
