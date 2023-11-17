@@ -28,6 +28,5 @@ public class UserService {
                 .name(user.getName())
                 .email(user.getEmail())
                 .build();
-
     }
 }
