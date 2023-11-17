@@ -16,6 +16,7 @@ export class Start {
 
 		this.#htmlElements.buttonRanking.addEventListener('click', (e) => {
 			this.modalRanking.show();
+			this.modalRanking.loadStats();
 			this.#hide();
 		});
 		this.#htmlElements.buttonUserStats.addEventListener('click', (e) => {

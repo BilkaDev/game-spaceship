@@ -1,29 +1,28 @@
 package pl.networkmanager.bilka.spaceship.auth;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.networkmanager.bilka.spaceship.response.ResponseMessage;
 import pl.networkmanager.bilka.spaceship.auth.dto.SigninDto;
 import pl.networkmanager.bilka.spaceship.auth.dto.SignupDto;
-import pl.networkmanager.bilka.spaceship.user.User;
-import pl.networkmanager.bilka.spaceship.user.UserService;
+import pl.networkmanager.bilka.spaceship.auth.response.AuthenticationResponse;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
-    @Autowired
-    UserService userService;
+    private final AuthService service;
 
     @PostMapping("/signup")
-    public User register(@Valid @RequestBody SignupDto user) throws Exception {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody SignupDto payload) throws Exception {
 
-        return userService.createUser(user);
+        return ResponseEntity.ok(service.register(payload));
     }
 
     @PostMapping("/signin")
-    public User login(@Valid @RequestBody SigninDto user) throws Exception {
-        return userService.login(user);
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody SigninDto payload) throws Exception {
+        return ResponseEntity.ok(service.authenticate(payload));
     }
 }

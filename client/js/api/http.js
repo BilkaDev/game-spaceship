@@ -1,5 +1,5 @@
 //const apiGateway = 'https://infinite-waters-84171-1806d8c13ca6.herokuapp.com';
-const apiGateway = 'http://localhost:8081';
+const apiGateway = 'http://localhost:8081/api';
 
 const Endpoint_Auth_Register = () => 'auth/signup';
 const Endpoint_Auth_Login = () => 'auth/signin';
@@ -7,26 +7,31 @@ const Endpoint_Auth_Login = () => 'auth/signin';
 const Endpoint_Profile = () => 'users/me';
 
 const Endpoint_Stats_TOP = () => 'stats/top';
-const Endpoint_Stats_User = (id) => `stats/${id}`;
+const Endpoint_Stats_User = () => `stats/user`;
 const Endpoint_Stat_Save = () => 'stats';
 
 class HTTP {
 	_http = this._createNewInstance('');
-	get = this._http.get;
-	post = this._http.post;
-	put = this._http.put;
-	delete = this._http.delete;
-	patch = this._http.patch;
-
-	_createNewInstance() {
-		return axios.create({
+	_createNewInstance(token) {
+		const http = axios.create({
 			baseURL: apiGateway,
 			timeout: 1000,
 			headers: {
 				accept: 'application/json',
+				Authorization: `Bearer ${token}`,
 			},
 		});
+
+		this.get = http.get;
+		this.post = http.post;
+		this.put = http.put;
+		this.delete = http.delete;
+		this.patch = http.patch;
+		return http;
 	}
+	auth = (token) => {
+		this._http = this._createNewInstance(token);
+	};
 }
 
 export const http = new HTTP();
@@ -42,6 +47,6 @@ export const userEndpoint = {
 
 export const statEndpoint = {
 	getTopStats: () => Endpoint_Stats_TOP(),
-	getUserStats: (id) => Endpoint_Stats_User(id),
+	getUserStats: () => Endpoint_Stats_User(),
 	saveStat: () => Endpoint_Stat_Save(),
 };

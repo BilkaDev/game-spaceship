@@ -14,7 +14,6 @@ export class Ranking {
 	#itemInTable = new ItemInTable(this.#htmlElements.tbody);
 
 	constructor() {
-		this.loadStats();
 		this.#htmlElements.buttonBack.addEventListener('click', () => {
 			this.#isFirstGame
 				? this.#htmlElements.modalStart.classList.remove('hide')
@@ -43,7 +42,7 @@ export class Ranking {
 		getTopStats()
 			.then((res) => {
 				res.data.forEach((item, id) => {
-					this.#itemInTable.add({ rank: id + 1, username: item.username, score: item.score });
+					this.#itemInTable.add({ rank: id + 1, username: item.user.name, score: item.score });
 				});
 			})
 			.catch((e) => this.#addError('Something went wrong, Please try later.'));

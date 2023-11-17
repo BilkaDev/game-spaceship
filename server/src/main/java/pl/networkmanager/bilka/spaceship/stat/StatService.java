@@ -1,29 +1,36 @@
 package pl.networkmanager.bilka.spaceship.stat;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.networkmanager.bilka.spaceship.exception.BadRequestException;
+import pl.networkmanager.bilka.spaceship.exception.NotFoundException;
+import pl.networkmanager.bilka.spaceship.stat.dto.StatAddDto;
+import pl.networkmanager.bilka.spaceship.stat.response.ResponseMessage;
+import pl.networkmanager.bilka.spaceship.user.UserService;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StatService {
-    @Autowired
-    StatRepository statRepository;
+    private final StatRepository statRepository;
+    private final UserService userService;
 
     public List<Stat> getTop() {
-        return statRepository.getTop();
+        return statRepository.findTop100ByOrderByScoreDesc();
     }
 
-    public String add(Stat stat) throws BadRequestException {
-        int result = statRepository.save(stat);
-        if (result == 0){
-            throw new BadRequestException("Check data provider");
-        }
-        return "Stat added";
+    public ResponseMessage add(StatAddDto payload, String email) throws NotFoundException {
+        var user = userService.getCurrentUser(email);
+        var stat = Stat.builder()
+                .score(payload.getScore())
+                .user(user)
+                .build();
+
+        statRepository.save(stat);
+        return ResponseMessage.builder().message("Stat added").build();
     }
 
-    public List<Stat> getUserStats(String userId) {
-        return statRepository.getUserStatsByUserId(userId);
+    public List<Stat> getUserStats(String email) {
+        return statRepository.findTop100ByUserEmailOrderByScoreDesc(email);
     }
 }

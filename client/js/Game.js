@@ -6,7 +6,6 @@ import { Start } from './view/Start.js';
 import { Ranking } from './view/Ranking.js';
 import { UserStats } from './view/UserStats.js';
 import { EndGame } from './view/EndGame.js';
-import { loadFromStorage } from './storage.js';
 
 class Game {
 	#htmlElements = {
@@ -64,10 +63,8 @@ class Game {
 	}
 
 	#saveStat() {
-		const user = loadFromStorage('user');
 		const payload = {
 			score: this.#score,
-			userId: user.id,
 		};
 		saveStat(payload);
 	}
