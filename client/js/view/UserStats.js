@@ -1,6 +1,5 @@
 import { ItemInTable } from '../components/ItemInTable.js';
 import { getUserStats } from './../api/stat.js';
-import { loadFromStorage } from './../storage.js';
 
 export class UserStats {
 	#htmlElements = {
@@ -37,14 +36,13 @@ export class UserStats {
 	}
 
 	loadStats() {
-		const user = loadFromStorage('user');
 		this.#clearError();
 		this.#clearTable();
 
-		getUserStats(user.id)
+		getUserStats()
 			.then((res) => {
 				res.data.forEach((item, id) => {
-					this.#itemInTable.add({ rank: id + 1, username: item.username, score: item.score }, false);
+					this.#itemInTable.add({ rank: id + 1, username: item.user.name, score: item.score }, false);
 				});
 			})
 			.catch((e) => {
