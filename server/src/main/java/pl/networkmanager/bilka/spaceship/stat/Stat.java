@@ -1,21 +1,25 @@
 package pl.networkmanager.bilka.spaceship.stat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.networkmanager.bilka.spaceship.user.User;
 
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "stat")
 public class Stat {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private Long score;
-    @JsonIgnore
-    private String user_id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String username;
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

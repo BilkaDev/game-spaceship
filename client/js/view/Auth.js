@@ -1,6 +1,6 @@
+import { http } from './../api/http.js';
 import { regsiterUser, login } from './../api/auth.js';
 import { getTopStats } from './../api/stat.js';
-import { saveToStorage } from './../storage.js';
 
 export class Auth {
 	#htmlElements = {
@@ -25,12 +25,12 @@ export class Auth {
 
 	#runServer() {
 		getTopStats()
-			.then((r) => {
-				if (r.status === 200) {
-					this.#htmlElements.runningText.innerHTML = '';
-				}
-			})
+			.then((r) => {})
 			.catch((e) => {
+				if (e?.code !== undefined && e.code === 'ERR_NETWORK') {
+					this.#htmlElements.runningText.innerHTML = '';
+					return;
+				}
 				setTimeout(() => this.#runServer(), 1000);
 			});
 	}
@@ -57,7 +57,7 @@ export class Auth {
 	#onSuccess(data) {
 		this.#showStartGame();
 		this.#hide();
-		saveToStorage('user', data);
+		http.auth(data.token);
 	}
 	async #registerUser(payload) {
 		try {
@@ -97,11 +97,11 @@ export class Auth {
 
 		const email = this.#getInputValue(this.#htmlElements.inputEmail);
 		const password = this.#getInputValue(this.#htmlElements.inputPassword);
-		const username = this.#getInputValue(this.#htmlElements.inputUsername);
+		const name = this.#getInputValue(this.#htmlElements.inputUsername);
 		const userPayload = {
 			email,
 			password,
-			username,
+			name,
 		};
 
 		if (this.#isLoginMode) {

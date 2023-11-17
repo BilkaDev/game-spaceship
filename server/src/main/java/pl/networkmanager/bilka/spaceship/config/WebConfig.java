@@ -1,4 +1,4 @@
-package pl.networkmanager.bilka.spaceship;
+package pl.networkmanager.bilka.spaceship.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
