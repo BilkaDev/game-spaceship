@@ -2,7 +2,9 @@
 
 Spaceship game written in JS and Java spring boot
 
-view Online: https://bilkadev.github.io/Game-spaceship/
+view Online: 
+
+https://bilkadev.github.io/Java_SpringBoot_JS_Game-spaceship/
 
 Demo account:
 ```
