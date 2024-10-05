@@ -126,14 +126,14 @@ export class Auth {
         this.#isLoginMode = !this.#isLoginMode;
 
         if (this.#isLoginMode) {
-            this.#htmlElements.buttonSwitch.textContent = 'Switch to login';
+            this.#htmlElements.buttonSwitch.textContent = 'Switch to sign up';
             this.#htmlElements.inputUsername.classList.add('hide');
             this.#htmlElements.buttonSubmit.textContent = 'Login';
             this.#htmlElements.inputUsername.disabled = true;
         } else {
             this.#htmlElements.inputUsername.disabled = false;
             this.#htmlElements.inputUsername.classList.remove('hide');
-            this.#htmlElements.buttonSwitch.textContent = 'Switch to register';
+            this.#htmlElements.buttonSwitch.textContent = 'Switch to login';
             this.#htmlElements.buttonSubmit.textContent = 'Register';
         }
     }

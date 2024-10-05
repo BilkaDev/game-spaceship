@@ -13,38 +13,38 @@ const Endpoint_Stats_User = (id) => `stats/${id}`;
 const Endpoint_Stat_Save = () => 'stats';
 
 class HTTP {
-	_http = this._createNewInstance('');
-	get = this._http.get;
-	post = this._http.post;
-	put = this._http.put;
-	delete = this._http.delete;
-	patch = this._http.patch;
+    _http = this._createNewInstance('');
+    get = this._http.get;
+    post = this._http.post;
+    put = this._http.put;
+    delete = this._http.delete;
+    patch = this._http.patch;
 
-	_createNewInstance() {
-		return axios.create({
-			baseURL: apiGateway,
-			timeout: 1000,
-			headers: {
-				accept: 'application/json',
-			},
-		});
-	}
+    _createNewInstance() {
+        return axios.create({
+            baseURL: apiGateway,
+            timeout: 1000,
+            headers: {
+                accept: 'application/json',
+            },
+        });
+    }
 }
 
 export const http = new HTTP();
 
 export const authEndpoint = {
-	register: () => Endpoint_Auth_Register(),
-	login: () => Endpoint_Auth_Login(),
+    register: () => Endpoint_Auth_Register(),
+    login: () => Endpoint_Auth_Login(),
 };
 
 export const userEndpoint = {
-	profile: () => Endpoint_Profile(),
+    profile: () => Endpoint_Profile(),
 };
 
 export const statEndpoint = {
-	getHealth: () => Endpoint_Health(),
-	getTopStats: () => Endpoint_Stats_TOP(),
-	getUserStats: (id) => Endpoint_Stats_User(id),
-	saveStat: () => Endpoint_Stat_Save(),
+    getHealth: () => Endpoint_Health(),
+    getTopStats: () => Endpoint_Stats_TOP(),
+    getUserStats: (id) => Endpoint_Stats_User(id),
+    saveStat: () => Endpoint_Stat_Save(),
 };
