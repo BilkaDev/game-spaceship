@@ -1,11 +1,12 @@
 // const apiGateway = 'https://infinite-waters-84171-1806d8c13ca6.herokuapp.com';
-//const apiGateway = 'http://localhost:8081';
 const apiGateway = 'https://api.spaceship.bilka.usermd.net/spaceship'
-
+// const apiGateway = 'http://localhost:8888/api'
 const Endpoint_Auth_Register = () => 'auth/signup';
 const Endpoint_Auth_Login = () => 'auth/signin';
 
 const Endpoint_Profile = () => 'users/me';
+
+const Endpoint_Health = () => 'health';
 
 const Endpoint_Stats_TOP = () => 'stats/top';
 const Endpoint_Stats_User = (id) => `stats/${id}`;
@@ -42,6 +43,7 @@ export const userEndpoint = {
 };
 
 export const statEndpoint = {
+	getHealth: () => Endpoint_Health(),
 	getTopStats: () => Endpoint_Stats_TOP(),
 	getUserStats: (id) => Endpoint_Stats_User(id),
 	saveStat: () => Endpoint_Stat_Save(),
