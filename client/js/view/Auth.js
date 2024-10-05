@@ -26,7 +26,7 @@ export class Auth {
 	#runServer() {
 		getTopStats()
 			.then((r) => {
-				if (r.status === 200) {
+				if (r.status === 200 || r.status === 401) {
 					this.#htmlElements.runningText.innerHTML = '';
 				}
 			})
