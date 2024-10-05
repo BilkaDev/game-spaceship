@@ -6,7 +6,7 @@ const Endpoint_Auth_Login = () => 'auth/signin';
 
 const Endpoint_Profile = () => 'users/me';
 
-const Endpoint_Health = () => 'health';
+const Endpoint_Health = () => 'stats/top';
 
 const Endpoint_Stats_TOP = () => 'stats/top';
 const Endpoint_Stats_User = (id) => `stats/${id}`;
