@@ -1,6 +1,6 @@
 // const apiGateway = 'https://infinite-waters-84171-1806d8c13ca6.herokuapp.com';
 //const apiGateway = 'http://localhost:8081';
-const apiGateway = 'http://68.mydevil.net:8888/spaceship'
+const apiGateway = 'https://api.spaceship.bilka.usermd.net/spaceship'
 
 const Endpoint_Auth_Register = () => 'auth/signup';
 const Endpoint_Auth_Login = () => 'auth/signin';
