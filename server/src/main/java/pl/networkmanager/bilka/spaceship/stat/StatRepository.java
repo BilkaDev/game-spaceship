@@ -1,35 +1,10 @@
 package pl.networkmanager.bilka.spaceship.stat;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-@Repository
-public class StatRepository {
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    public List<Stat> getTop() {
-        return jdbcTemplate.query(
-                "SELECT s.id, s.score, u.username FROM stat AS s JOIN user AS u ON s.user_id = u.id ORDER BY s.score DESC LIMIT 100;",
-                BeanPropertyRowMapper.newInstance(Stat.class)
-        );
-
-    }
-
-    public int save(Stat stats){
-        try {
-            jdbcTemplate.update("INSERT INTO stat(score, user_id) VALUES(?,?);", stats.getScore(), stats.getUser_id());
-            return 1;
-        } catch (Exception DataIntegrityViolationException){
-            return 0;
-        }
-    }
-
-    public List<Stat> getUserStatsByUserId(String userId) {
-            return jdbcTemplate.query("SELECT s.id, s.score FROM stat AS s JOIN user AS u ON s.user_id = u.id WHERE s.user_id = ? ORDER BY s.score DESC LIMIT 100;", BeanPropertyRowMapper.newInstance(Stat.class), userId);
-    }
+public interface StatRepository extends JpaRepository<Stat, String> {
+    List<Stat> findTop100ByOrderByScoreDesc();
+    List<Stat> findTop100ByUserEmailOrderByScoreDesc( String email);
 }

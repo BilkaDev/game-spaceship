@@ -1,28 +1,8 @@
 package pl.networkmanager.bilka.spaceship.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class UserRepository {
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    public User getByEmail(String email) {
-        try {
-            return jdbcTemplate.queryForObject(
-                    "SELECT * FROM user WHERE email = ?",
-                    BeanPropertyRowMapper.newInstance(User.class), email
-            );
-        } catch (EmptyResultDataAccessException ex) {
-            return null;
-        }
-    }
-
-    public void save(User user){
-        jdbcTemplate.update("INSERT INTO user(email, username, hashPwd) VALUES(?,?,?)",user.getEmail(), user.getUsername(), user.getHashPwd());
-    }
+public interface UserRepository extends JpaRepository<User, String> {
+    Optional<User> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package pl.networkmanager.bilka.spaceship.middleware;
+package pl.networkmanager.bilka.spaceship.config;
 
 
 import org.springframework.http.HttpHeaders;
