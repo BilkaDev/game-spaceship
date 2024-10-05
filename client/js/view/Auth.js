@@ -65,7 +65,11 @@ export class Auth {
 
     async #registerUser(payload) {
         try {
-            const res = await regsiterUser(payload);
+            const res = await regsiterUser({
+                email: payload.email,
+                password: payload.password,
+                name: payload.username
+            });
             this.#onSuccess(res.data);
         } catch (error) {
             this.#htmlElements.errorSpan.classList.remove('hide');
