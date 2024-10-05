@@ -26,7 +26,6 @@ export class Auth {
     #runServer() {
         getHealth()
             .then((r) => {
-                console.log(r.status)
                 if (r.status === 200) {
                     this.#htmlElements.runningText.innerHTML = '';
                 }
