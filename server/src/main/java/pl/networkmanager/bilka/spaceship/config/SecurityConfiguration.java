@@ -21,7 +21,6 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] WHITE_LIST_URL = {"/api/auth/**"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
@@ -34,6 +33,7 @@ public class SecurityConfiguration {
 //                                .anyRequest()
 //                                .authenticated()
 //                )
+//                .httpBasic(Customizer.withDefaults())
 //                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
 //                .authenticationProvider(authenticationProvider)
 //                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -46,8 +46,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(antMatcher("/api/auth/**")).permitAll();
-                    auth.requestMatchers(antMatcher("/api/health")).permitAll();
+                    auth.requestMatchers(
+                            new org.springframework.security.web.util.matcher.AntPathRequestMatcher[]{
+                                    antMatcher("/api/health/**"),
+                                    antMatcher("/api/**"),
+                            }).permitAll();
                     auth.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

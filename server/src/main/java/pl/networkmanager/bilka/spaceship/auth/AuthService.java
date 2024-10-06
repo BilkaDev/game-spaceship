@@ -36,6 +36,9 @@ public class AuthService {
         return AuthenticationResponse
                 .builder()
                 .token(jwtToken)
+                .name(payload.getName())
+                .email(payload.getEmail())
+                .id(user.getId())
                 .build();
     }
 
@@ -53,6 +56,9 @@ public class AuthService {
             return AuthenticationResponse
                     .builder()
                     .token(jwtToken)
+                    .email(user.getEmail())
+                    .name(user.getName())
+                    .id(user.getId())
                     .build();
         } catch (Exception e) {
             throw new UnauthorizedException("Invalid email or password");

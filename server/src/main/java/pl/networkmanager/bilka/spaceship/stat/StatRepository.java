@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface StatRepository extends JpaRepository<Stat, String> {
     List<Stat> findTop100ByOrderByScoreDesc();
-    List<Stat> findTop100ByUserEmailOrderByScoreDesc( String email);
+
+    List<Stat> findTop100ByUserIdOrderByScoreDesc(String id);
 }

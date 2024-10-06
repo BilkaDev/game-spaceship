@@ -19,8 +19,8 @@ public class StatService {
         return statRepository.findTop100ByOrderByScoreDesc();
     }
 
-    public ResponseMessage add(StatAddDto payload, String email) throws NotFoundException {
-        var user = userService.getCurrentUser(email);
+    public ResponseMessage add(StatAddDto payload) throws NotFoundException {
+        var user = userService.getCurrentUser(payload.getUserId());
         var stat = Stat.builder()
                 .score(payload.getScore())
                 .user(user)
@@ -31,6 +31,6 @@ public class StatService {
     }
 
     public List<Stat> getUserStats(String email) {
-        return statRepository.findTop100ByUserEmailOrderByScoreDesc(email);
+        return statRepository.findTop100ByUserIdOrderByScoreDesc(email);
     }
 }

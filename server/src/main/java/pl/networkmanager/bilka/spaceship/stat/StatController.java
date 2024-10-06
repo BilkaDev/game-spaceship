@@ -2,6 +2,7 @@ package pl.networkmanager.bilka.spaceship.stat;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.networkmanager.bilka.spaceship.exception.NotFoundException;
@@ -23,14 +24,14 @@ public class StatController {
         return ResponseEntity.ok(statService.getTop());
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<List<Stat>> getUserTop(Principal principal) {
-        return ResponseEntity.ok(statService.getUserStats(principal.getName()));
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Stat>> getUserTop(@PathVariable String id) {
+        return ResponseEntity.ok(statService.getUserStats(id));
     }
 
     @PostMapping("")
-    public ResponseEntity<ResponseMessage> addStat(@Valid @RequestBody StatAddDto statDto, Principal principal) throws NotFoundException {
-        var responseMessage = statService.add(statDto, principal.getName());
+    public ResponseEntity<ResponseMessage> addStat(@Valid @RequestBody StatAddDto statDto) throws NotFoundException {
+        var responseMessage = statService.add(statDto);
 
         return ResponseEntity.ok(responseMessage);
     }
